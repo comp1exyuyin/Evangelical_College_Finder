@@ -1,6 +1,34 @@
 # Evangelical_College_Finder
 Making a list of best valued US Colleges and Universities for WORLDWIDE highschool student who wanted to go to US for Bachelor degree. And researches on how to use Chat-GPT to generate web crawler program that can be used by ANYONE. (Still in process...)
-
+            
+    import requests
+    from bs4 import BeautifulSoup
+    
+    url = "http://www.qianmu.org/2023USNEWS%E7%BE%8E%E5%9B%BD%E6%9C%BA%E6%A2%B0%E5%B7%A5%E7%A8%8B%E6%8E%92%E5%90%8D"
+    
+    response = requests.get(url)
+    
+    if response.status_code == 200:
+        
+        soup = BeautifulSoup(response.content, 'html.parser')
+        
+       
+        rankings_table = soup.find('table')  # Assuming the data is in a table
+    
+        
+        data = []
+        for row in rankings_table.find_all('tr'):
+            cells = row.find_all('td')
+            row_data = [cell.get_text(strip=True) for cell in cells]
+            data.append(row_data)
+    
+        for row in data:
+            print(row)
+    else:
+        print("Failed to retrieve the webpage. Status code:", response.status_code)
+              
+hi 
+    
     import requests
     from bs4 import BeautifulSoup
     import pandas as pd
